@@ -40,9 +40,9 @@
     ></script>
 
     <style>
-      .was-validated .form-control:valid,
+      /* .was-validated .form-control:valid,
       .form-control.is-valid {
-        background-image: none; /* Remove the custom background image */
+        background-image: none; 
       }
       .was-validated .form-select:valid,
       .form-select.is-valid {
@@ -51,6 +51,24 @@
       .was-validated .form-control:invalid,
       .form-control.is-invalid {
         background-image: none;
+      } */
+
+      .Optinal {
+        position: relative;
+      }
+
+      .Optinal::before {
+        opacity: 1;
+        content: 'Optinal';
+        color: #333333;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        font-size: 1.2rem;
+        padding: 0.1rem 0.5rem;
       }
     </style>
   </head>
@@ -132,25 +150,22 @@
       </div>
     </header>
 
-    <section class="mt-5 container ps-md-3 ps-lg-1 mt-md-2 py-md-4 w-75">
+    <section class="mt-5 container ps-md-3 ps-lg-1 mt-md-2 py-md-4">
       <div>
-        <div
-          class="d-flex justify-content-between col-sm-12 col-lg-10 flex-column flex-md-row text-light"
-        >
-          <h1 class="mt-5 h3 pt-xl-1 pb-2 text-black">Book Your Ride</h1>
-
-          <nav aria-label="breadcrumb ">
+        <div class="d-flex justify-content-center flex-wrap">
+          <nav aria-label="breadcrumb m-auto ">
             <ol class="breadcrumb d-flex align-items-center h1 pt-xl-1 pb-2">
-              <li class="breadcrumb-item text-black fs-lg-5">
+              <li class="text-black fs-lg-5 fs-2 fw-bold">
                 Trip Details<i class="bi bi-chevron-double-right mx-2"></i>
               </li>
 
-              <li class="breadcrumb-item text-black fs-lg-5">
-                Products list <i class="bi bi-chevron-double-right mx-2"></i>
+              <li class="text-black fs-lg-5 fs-2 fw-bold">
+                Products list
+                <i class="bi bi-chevron-double-right mx-2"></i>
               </li>
 
               <li
-                class="breadcrumb-item active text-black fs-lg-5"
+                class="active text-black fs-lg-5 fs-2 fw-bold"
                 aria-current="page"
               >
                 Single product
@@ -158,30 +173,25 @@
             </ol>
           </nav>
         </div>
+        <h1 class="mt-5 h3 pt-xl-1 pb-2 text-black">Book Your Ride</h1>
 
         <form
-          class="needs-validation border-bottom pb-2 pb-lg-4 was-validated col-sm-12 col-lg-12 rounded p-3 p-sm-5 shadow-sm text-black"
-          style="background-color: #fff"
+          class="needs-validation pb-2 pb-lg-4 col-sm-12 rounded shadow-sm"
           novalidate=""
         >
           <div
-            class="btn-group d-flex mb-3 col-sm-6 col-md-3"
+            class="btn-group d-flex col-sm-6 col-md-3"
             role="group"
-            aria-label="Solid button group"
+            aria-label="Solid button group border border-black"
           >
-            <button type="button" class="btn btn-dark w-50 py-md-3">
+            <button type="button" class="btn w-50 py-md-3 bg-white text-black">
               Hourly
             </button>
-            <button
-              type="button"
-              class="w-50"
-              style="background-color: #ae2227; color: #000; font-weight: bold"
-            >
+            <button type="button" class="btn w-50 bg-black text-white">
               Point to Point
             </button>
           </div>
-
-          <div class="row pb-2">
+          <div class="row pb-2 p-3 p-sm-5 pt-0 pt-sm-0">
             <div class="mb-1 mt-3">
               <input type="checkbox" id="return-back" />
               <label for="return-back" class="form-label fs-base"
@@ -299,7 +309,9 @@
               </select>
               <div class="invalid-feedback">Please choose your state!</div>
             </div>
-
+            <div class="Optinal">
+              <hr />
+            </div>
             <!-- Airline Name -->
             <div class="col-sm-6 col-md-3 mb-4">
               <label
@@ -343,31 +355,67 @@
 
             <!-- Child Seats -->
             <div class="col-sm-6 mb-4">
-              <input id="seats" type="checkbox" id="zip" class="" required="" />
-              <label for="seats" class="form-label fs-base">Child Seats</label>
-              <div id="x" class="d-flex gap-2 d-none">
+              <div class="mb-1">
                 <input
-                  type="number"
-                  id="y"
+                  id="seats"
+                  type="checkbox"
+                  id="zip"
+                  class=""
+                  required=""
+                />
+                <label for="seats" class="form-label fs-base"
+                  >Child Seats</label
+                >
+              </div>
+              <div id="x" class="d-flex gap-2 d-none">
+                <!-- <input
+                 
                   class="form-control form-control-md"
-                  placeholder="XL"
-                  max="3"
-                  min="0"
-                  value="2"
+                  
                 />
 
                 <input
-                  id="a1"
-                  type="number"
+                  
                   class="form-control form-control-md"
-                  placeholder=" forward-facing"
+                  placeholder=" "
                 />
 
                 <input
                   id="a2"
                   type="number"
                   class="form-control form-control-md"
-                />
+                /> -->
+
+                <div class="form-floating col-4">
+                  <input
+                    type="number"
+                    id="y"
+                    class="form-control"
+                    placeholder="XL"
+                    max="3"
+                    min="0"
+                    placeholder="num"
+                  />
+                  <label for="floatingPassword">num</label>
+                </div>
+                <div class="form-floating col-4">
+                  <input
+                    id="a1"
+                    type="number"
+                    class="form-control"
+                    placeholder="forward-facing"
+                  />
+                  <label for="floatingPassword">forward-facing</label>
+                </div>
+                <div class="form-floating col-4">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingPassword"
+                    placeholder="Password"
+                  />
+                  <label for="floatingPassword">Password</label>
+                </div>
               </div>
             </div>
           </div>
