@@ -13,6 +13,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" defer></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"
@@ -40,39 +47,30 @@
     ></script>
 
     <style>
-      /* .was-validated .form-control:valid,
-      .form-control.is-valid {
-        background-image: none; 
-      }
-      .was-validated .form-select:valid,
-      .form-select.is-valid {
-        background-image: none;
-      }
-      .was-validated .form-control:invalid,
-      .form-control.is-invalid {
-        background-image: none;
-      } */
-
       .Optinal {
         position: relative;
+        margin: 1.5rem 0 2rem 0;
       }
 
       .Optinal::before {
         opacity: 1;
-        content: 'Optinal';
+        content: "Optional";
         color: #333333;
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 10%;
         z-index: 1;
         transform: translate(-50%, -50%);
         background-color: #fff;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         padding: 0.1rem 0.5rem;
+      }
+      .c {
+        color: red;
       }
     </style>
   </head>
-  <body style="background-color: #fff">
+  <body style="background-color: #e4e5e5">
     <header class="navbar navbar-expand-lg bg-light shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand">
@@ -155,43 +153,50 @@
         <div class="d-flex justify-content-center flex-wrap">
           <nav aria-label="breadcrumb m-auto ">
             <ol class="breadcrumb d-flex align-items-center h1 pt-xl-1 pb-2">
-              <li class="text-black fs-lg-5 fs-2 fw-bold">
-                Trip Details<i class="bi bi-chevron-double-right mx-2"></i>
+              <li class="text-black fs-lg-4 fs-2 fw-bold">
+                <span>Trip Details</span>
+                <i class="bi bi-chevron-double-right mx-2"></i>
               </li>
 
-              <li class="text-black fs-lg-5 fs-2 fw-bold">
-                Products list
+              <li class="text-black fs-lg-4 fs-2 fw-bold">
+                Products List
                 <i class="bi bi-chevron-double-right mx-2"></i>
               </li>
 
               <li
-                class="active text-black fs-lg-5 fs-2 fw-bold"
+                class="active text-black fs-lg-4 fs-2 fw-bold"
                 aria-current="page"
               >
-                Single product
+                Single Product
               </li>
             </ol>
           </nav>
         </div>
-        <h1 class="mt-5 h3 pt-xl-1 pb-2 text-black">Book Your Ride</h1>
-
+        <h1 class="mt-1 h2 pb-2 text-black fw-bold">Book Your Ride</h1>
+        <div
+          class="btn-group d-flex col-sm-6 col-md-3"
+          role="group"
+          aria-label="Solid button group border border-black"
+        >
+          <button
+            type="button"
+            class="btn w-50 rounded-0 py-md-3 bg-white text-black fs-5 fw-bold"
+          >
+            Hourly
+          </button>
+          <button
+            type="button"
+            class="btn w-50 rounded-0 bg-black text-white fs-5 fw-bold"
+          >
+            Point to Point
+          </button>
+        </div>
         <form
-          class="needs-validation pb-2 pb-lg-4 col-sm-12 rounded shadow-sm"
+          style="background-color: #ffffff"
+          class="needs-validation pb-2 pb-lg-2 col-sm-12 col-lg-12 rounded shadow-sm rounded-0"
           novalidate=""
         >
-          <div
-            class="btn-group d-flex col-sm-6 col-md-3"
-            role="group"
-            aria-label="Solid button group border border-black"
-          >
-            <button type="button" class="btn w-50 py-md-3 bg-white text-black">
-              Hourly
-            </button>
-            <button type="button" class="btn w-50 bg-black text-white">
-              Point to Point
-            </button>
-          </div>
-          <div class="row pb-2 p-3 p-sm-5 pt-0 pt-sm-0">
+          <div class="row pb-2 p-3 px-sm-5 pt-0 pt-sm-0">
             <div class="mb-1 mt-3">
               <input type="checkbox" id="return-back" />
               <label for="return-back" class="form-label fs-base"
@@ -204,44 +209,63 @@
                 for="city"
                 class="form-label fs-base d-flex align-items-center"
               >
-                <i
-                  class="bi bi-geo-alt"
-                  style="font-size: 1.2rem; color: inherit; margin-right: 5px"
-                ></i>
+                <i class="bi bi-geo-alt mx-2"></i>
+                <!-- style="font-size: 1.2rem; color: inherit; margin-right: 5px" -->
                 Pick-Up Location<span class="fs-4 text-danger">*</span>
               </label>
               <input
                 id="address2"
                 type="text"
                 class="form-control form-control-md"
-                placeholder=" Location Select"
+                placeholder="Select Location "
               />
               <div class="invalid-feedback">Please choose your city!</div>
             </div>
 
             <!-- Pick-up Location -->
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-6 mb-4" id="pick-up">
               <label
                 for="city"
                 class="form-label fs-base d-flex align-items-center"
               >
-                <i
-                  class="bi bi-geo-alt"
-                  style="font-size: 1.2rem; color: inherit; margin-right: 5px"
-                ></i>
+                <i class="bi bi-geo-alt mx-2"></i>
+                <!-- style="font-size: 1.2rem; color: inherit; margin-right: 5px" -->
                 Drop-Off Location<span class="fs-4 text-danger">*</span>
               </label>
               <input
                 id="address2"
                 type="text"
                 class="form-control form-control-md"
-                placeholder=" Location Select"
+                placeholder="Select Location "
               />
               <div class="invalid-feedback">Please choose your city!</div>
             </div>
 
+            <!-- Duration -->
+
+            <div class="col-sm-6 mb-4">
+              <label
+                for="state"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <i class="bi bi-stopwatch mx-2"></i>
+                <!-- style="font-size: 1.2rem; color: inherit; margin-right: 7px" -->
+                Duration<span class="fs-4 text-danger">*</span>
+              </label>
+              <select id="state" class="form-select form-select-md" required="">
+                <option value="" disabled="">Choose state</option>
+                <option value="Arizona">Arizona</option>
+                <option value="California">California</option>
+                <option value="Iowa">Iowa</option>
+                <option value="Florida" selected="">Florida</option>
+                <option value="Michigan">Michigan</option>
+                <option value="Texas">Texas</option>
+              </select>
+              <div class="invalid-feedback">Please choose your state!</div>
+            </div>
+
             <!-- Date && Time -->
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3" id="ChangeDateWidth">
               <label
                 for="address1"
                 class="form-label fs-base d-flex align-items-center"
@@ -267,16 +291,13 @@
               </div>
             </div>
 
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3" id="ChangeTimeWidth">
               <label
                 for="address2"
                 class="form-label fs-base d-flex align-items-center"
               >
-                <i
-                  class="bi bi-clock"
-                  id="clock-icon"
-                  style="font-size: 1.2rem; color: inherit; margin-right: 7px"
-                ></i>
+                <i class="bi bi-clock mx-2" id="clock-icon"></i>
+
                 Time<span class="fs-4 text-danger">*</span>
               </label>
               <input
@@ -286,17 +307,18 @@
               />
             </div>
 
-            <!-- Duration -->
-            <div class="col-sm-6 mb-4" id="pick-up">
+            <div class="Optinal">
+              <hr />
+            </div>
+            <!-- Airline Name -->
+            <div class="col-sm-6 col-md-3 mb-4">
               <label
-                for="state"
+                for="address1"
                 class="form-label fs-base d-flex align-items-center"
               >
-                <i
-                  class="bi bi-stopwatch"
-                  style="font-size: 1.2rem; color: inherit; margin-right: 7px"
-                ></i>
-                Duration<span class="fs-4 text-danger">*</span>
+                <i class="bi bi-airplane mx-2"></i>
+                <!-- style="font-size: 1.2rem; color: inherit; margin-right: 9px" -->
+                Airline Name
               </label>
               <select id="state" class="form-select form-select-md" required="">
                 <option value="" disabled="">Choose state</option>
@@ -307,30 +329,6 @@
                 <option value="Michigan">Michigan</option>
                 <option value="Texas">Texas</option>
               </select>
-              <div class="invalid-feedback">Please choose your state!</div>
-            </div>
-            <div class="Optinal">
-              <hr />
-            </div>
-            <!-- Airline Name -->
-            <div class="col-sm-6 col-md-3 mb-4">
-              <label
-                for="address1"
-                class="form-label fs-base d-flex align-items-center"
-              >
-                <i
-                  class="bi bi-airplane"
-                  style="font-size: 1.2rem; color: inherit; margin-right: 9px"
-                ></i>
-                Airline Name
-              </label>
-              <input
-                id="address1"
-                type="text"
-                class="form-control form-control-md"
-                required=""
-                placeholder="Enter Airline Name"
-              />
             </div>
 
             <div class="col-sm-6 col-md-3 mb-4">
@@ -338,10 +336,8 @@
                 for="address2"
                 class="form-label fs-base d-flex align-items-center"
               >
-                <i
-                  class="bi bi-123"
-                  style="font-size: 1.2rem; color: inherit; margin-right: 9px"
-                ></i>
+                <i class="bi bi-123 mx-2"></i>
+
                 Flight Number<small class="text-muted"></small>
               </label>
               <input
@@ -349,43 +345,19 @@
                 type="text"
                 class="form-control form-control-md"
                 maxlength="4"
-                placeholder=" 1234"
+                placeholder="1234"
               />
             </div>
 
             <!-- Child Seats -->
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-6 mb-4" style="margin-top: -5px">
               <div class="mb-1">
-                <input
-                  id="seats"
-                  type="checkbox"
-                  id="zip"
-                  class=""
-                  required=""
-                />
+                <i class="bi bi-check2-circle ms-2"></i>
                 <label for="seats" class="form-label fs-base"
                   >Child Seats</label
                 >
               </div>
-              <div id="x" class="d-flex gap-2 d-none">
-                <!-- <input
-                 
-                  class="form-control form-control-md"
-                  
-                />
-
-                <input
-                  
-                  class="form-control form-control-md"
-                  placeholder=" "
-                />
-
-                <input
-                  id="a2"
-                  type="number"
-                  class="form-control form-control-md"
-                /> -->
-
+              <div id="x" class="d-flex gap-2">
                 <div class="form-floating col-4">
                   <input
                     type="number"
@@ -394,33 +366,208 @@
                     placeholder="XL"
                     max="3"
                     min="0"
-                    placeholder="num"
+                    placeholder="Rear-facing"
                   />
-                  <label for="floatingPassword">num</label>
+                  <label for="floatingPassword">Rear-facing</label>
                 </div>
                 <div class="form-floating col-4">
                   <input
                     id="a1"
                     type="number"
                     class="form-control"
-                    placeholder="forward-facing"
+                    placeholder="fowrard-facing"
                   />
-                  <label for="floatingPassword">forward-facing</label>
+                  <label for="floatingPassword">fowrard-facing</label>
                 </div>
                 <div class="form-floating col-4">
                   <input
-                    type="password"
+                    id="a2"
+                    type="number"
                     class="form-control"
-                    id="floatingPassword"
-                    placeholder="Password"
+                    placeholder="booster-seat"
                   />
-                  <label for="floatingPassword">Password</label>
+                  <label for="floatingPassword">booster-seat</label>
                 </div>
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-danger py-3 px-3">
+          <div class="d-flex justify-content-end me-5">
+            <button type="submit" class="btn btn-danger py-3 px-3 bg-primary">
+              Select Your Car
+            </button>
+          </div>
+          <!-- opint to point -->
+          <div class="row pb-2 p-3 px-sm-5 pt-0 pt-sm-0">
+            <div class="mb-2 mt-4 ms-2">
+              <div class="form-check form-check-inline">
+                <input
+                  id="round-trip"
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio2"
+                  value="option2"
+                />
+                <label class="form-check-label" for="inlineRadio2"
+                  >Round Trip</label
+                >
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  id="one-way-trip"
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio1"
+                  value="option1"
+                />
+                <label class="form-check-label" for="inlineRadio1"
+                  >One Way Trip</label
+                >
+              </div>
+            </div>
+
+            <!-- Pick-up Location -->
+            <div class="col-sm-6 mb-4">
+              <label
+                for="city"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <i class="bi bi-geo-alt mx-2"></i>
+                <!-- style="font-size: 1.2rem; color: inherit; margin-right: 5px" -->
+                Pick-Up Location<span class="fs-4 text-danger">*</span>
+              </label>
+              <input
+                id="address2"
+                type="text"
+                class="form-control form-control-md"
+                placeholder="Select Location "
+              />
+              <div class="invalid-feedback">Please choose your city!</div>
+            </div>
+
+            <!-- Pick-up Location -->
+            <div class="col-sm-6 mb-4 d-block" id="pick-up">
+              <label
+                for="city"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <i class="bi bi-geo-alt mx-2"></i>
+                <!-- style="font-size: 1.2rem; color: inherit; margin-right: 5px" -->
+                Drop-Off Location<span class="fs-4 text-danger">*</span>
+              </label>
+              <input
+                id="address2"
+                type="text"
+                class="form-control form-control-md"
+                placeholder="Select Location "
+              />
+              <div class="invalid-feedback">Please choose your city!</div>
+            </div>
+
+            <!-- Date && Time -->
+
+            <div class="col-sm-6 col-md-6" id="ChangeDateWidth">
+              <label
+                for="address1"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <span
+                  class="input-group-text"
+                  id="calendar-icon"
+                  style="background: none; border: none"
+                >
+                  <i class="bi bi-calendar" style="color: inherit"></i>
+                </span>
+                <span style="background: none">Date</span
+                ><span class="fs-4 text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <input
+                  id="address3"
+                  type="text"
+                  class="form-control form-control-md"
+                  readonly
+                  placeholder="dd/mm/yyyy"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3" id="ChangeTimeWidth">
+              <label
+                for="address2"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <i class="bi bi-clock mx-2" id="clock-icon"></i>
+
+                Time<span class="fs-4 text-danger">*</span>
+              </label>
+              <input
+                id="address2"
+                type="time"
+                class="form-control form-control-md"
+              />
+            </div>
+            <div class="col-sm-6 col-md-3" id="hidden">
+              <label
+                for="address2"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <i class="bi bi-clock mx-2" id="clock-icon"></i>
+
+                Return Time<span class="fs-4 text-danger">*</span>
+              </label>
+              <input
+                id="address2"
+                type="time"
+                class="form-control form-control-md"
+              />
+            </div>
+
+            <div class="Optinal">
+              <hr />
+            </div>
+            <!-- Airline Name -->
+            <div class="col-sm-6 col-md-6 mb-4">
+              <label
+                for="address1"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <i class="bi bi-airplane mx-2"></i>
+                <!-- style="font-size: 1.2rem; color: inherit; margin-right: 9px" -->
+                Airline Name
+              </label>
+              <select id="state" class="form-select form-select-md" required="">
+                <option value="" disabled="">Choose state</option>
+                <option value="Arizona">Arizona</option>
+                <option value="California">California</option>
+                <option value="Iowa">Iowa</option>
+                <option value="Florida" selected="">Florida</option>
+                <option value="Michigan">Michigan</option>
+                <option value="Texas">Texas</option>
+              </select>
+            </div>
+
+            <div class="col-sm-6 col-md-6 mb-4">
+              <label
+                for="address2"
+                class="form-label fs-base d-flex align-items-center"
+              >
+                <i class="bi bi-123 mx-2"></i>
+
+                Flight Number<small class="text-muted"></small>
+              </label>
+              <input
+                id="address2"
+                type="text"
+                class="form-control form-control-md"
+                maxlength="4"
+                placeholder="1234"
+              />
+            </div>
+          </div>
+          <div class="d-flex justify-content-end me-5">
+            <button type="submit" class="btn btn-danger py-3 px-3 bg-primary">
               Select Your Car
             </button>
           </div>
